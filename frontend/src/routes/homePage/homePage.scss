@@ -1,0 +1,63 @@
+.homePage {
+    display: flex;
+    height: 100%;
+  }
+  
+  .textcontainer {
+    flex: 3;
+  }
+  
+  .wrapper {
+    padding-right: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 50px;
+    height: 100%;
+  }
+  
+  .title {
+    font-size: 64px;
+  }
+  
+  .boxes {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .boxes h1 {
+    font-size: 36px;
+  }
+  
+  .boxes h2 {
+    font-size: 20px;
+    font-weight: 300;
+  }
+  
+  .imgContainer {
+    flex: 2;
+    background-color: white;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Media query for medium devices */
+  @media (max-width: 768px) {
+    .imgContainer {
+      display: none;
+    }
+  }
+  
+  .imgContainer img {
+    width: 115%;
+    position: absolute;
+    right: 0;
+  }
+  
+  /* Media query for large devices */
+  @media (max-width: 1024px) {
+    .imgContainer img {
+      width: 105%;
+  }
+}
