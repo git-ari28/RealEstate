@@ -1,16 +1,40 @@
-.listPage{
-   display:flex;
-   height:100%;
-    .listcontainer{
-        flex:3;
-        
-        .wrapper{
-            padding-right: 50px;
-        }
-    }
-    .mapcontainer{
-        flex:2;
-        background-color: red;
-    }
-   
+.listPage {
+    display: flex;
+    height: 100vh; /* Full viewport height */
+    gap: 20px; /* Adds spacing between the list and map containers */
+    padding: 10px; /* Padding around the containers */
 }
+
+.listcontainer {
+    flex: 3; /* This will occupy a flexible width in the layout */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-right: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 8px;
+    overflow-y: auto; /* This can be set to allow scrolling of card items */
+}
+
+.wrapper {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.mapcontainer {
+    flex: 2; /* Map will take 2/5th of the available space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 100%; /* Full height of the parent container */
+}
+
+
+
+

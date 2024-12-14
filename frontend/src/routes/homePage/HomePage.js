@@ -1,7 +1,7 @@
 import React from 'react'
 import "./homePage.scss"
 import SearchBar from '../../components/searchBar/SearchBar'
-
+import Testpage from './Testpage'
 const HomePage = () => {
   return (
     <div className='homePage'>
@@ -35,7 +35,7 @@ const HomePage = () => {
        <div className='imgContainer'>
 <img src="https://media.istockphoto.com/id/1159873271/photo/residential-area-in-the-city-modern-apartment-buildings.jpg?s=1024x1024&w=is&k=20&c=1gbLy7yUxgRLnK1H4zMIUi08Vsg62Ye_s0jOmDMWYq0=" alt=""/>
        </div>
-        
+       
 
 
 

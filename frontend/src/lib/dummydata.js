@@ -1,8 +1,8 @@
-const ListData = [
+export const ListData = [
     {
       id: 1,
       title: "Luxury Villa",
-      img: "https://example.com/img1.jpg",
+      img: "https://cdn.thecoolist.com/wp-content/uploads/2016/05/Carmel-Place-micro-apartment.jpg",
       bedrooms: 4,
       bathrooms: 3,
       price: 500000,
@@ -13,7 +13,7 @@ const ListData = [
     {
       id: 2,
       title: "Modern Apartment",
-      img: "https://example.com/img2.jpg",
+      img: "https://blog.bluebeam.com/wp-content/uploads/2022/07/The-Six-Inline-2-609x600.jpg",
       bedrooms: 2,
       bathrooms: 2,
       price: 300000,
@@ -24,7 +24,7 @@ const ListData = [
     {
       id: 3,
       title: "Cozy Cottage",
-      img: "https://example.com/img3.jpg",
+      img: "https://images1.apartments.com/i2/EJ6jjdodPus25iG8__MDeELaurIl-axtkayZDpyW1MA/111/lakeside-village-apartment-homes-lincoln-ne-exterior.jpg",
       bedrooms: 3,
       bathrooms: 2,
       price: 200000,
@@ -254,5 +254,21 @@ const ListData = [
       longitude: -118.2437
     },
     // Additional objects continue until id: 50
+  ];
+  export const dummyData = [
+    {
+      id: 1,
+      title: 'Luxury Apartment',
+      description: 'A beautiful luxury apartment in the heart of the city.',
+      address: '123 Main St, City, Country',
+      price: 250000,
+      bedrooms: 2,
+      images: [
+        'https://images.pexels.com/photos/1470945/pexels-photo-1470945.jpeg?cs=srgb&dl=architecture-apartment-room-1470945.jpg&fm=jpg',
+        'https://www.thespruce.com/thmb/0yPUS_juz8lzA4jyI8I5MRd3ol8=/1784x1286/filters:no_upscale():max_bytes(150000):strip_icc()/Living-room-with-traditional-details-58c0ad323df78c353c16f913.png',
+        'https://www.thespruce.com/thmb/EwQ7cXZS6AZkUCJ73UcJdB9e2Nw=/3580x2784/filters:no_upscale():max_bytes(150000):strip_icc()/Chuck-Schmidt-Getty-Images-56a5ae785f9b58b7d0ddfaf8.jpg',
+      ],
+    }
+    
   ];
   

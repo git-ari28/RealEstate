@@ -1,0 +1,63 @@
+.singlePage {
+    padding: 20px;
+  }
+  
+  .propertyContainer {
+    display: flex; /* Use flexbox to arrange child elements in a row */
+    justify-content: space-between; /* Space between the two sections */
+    margin-top: 20px; /* Space above the container */
+  }
+  
+  .propertyDetails {
+    flex: 2; /* Take up 2 parts of the available space */
+    background-color: #f9f9f9; /* Light background color for property details */
+    padding: 20px; /* Padding inside the details box */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin-right: 20px; /* Space to the right for separation */
+  }
+  
+  .propertyFeatures {
+    flex: 1; /* Take up 1 part of the available space */
+    background-color: #e2f0d9; /* Light green background color for property features */
+    padding: 20px; /* Padding inside the features box */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .buttonContainer {
+    display: flex; /* Use flexbox for button layout */
+    justify-content: space-around; /* Space between buttons */
+    margin-top: 20px; /* Margin above buttons */
+  }
+  
+  .messageButton, .saveButton {
+    background-color: #007bff; /* Button background color */
+    color: white; /* Text color */
+    border: none; /* Remove default border */
+    padding: 10px 20px; /* Padding around button text */
+    font-size: 16px; /* Font size */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+  }
+  
+  .messageButton:hover, .saveButton:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  .saveButton {
+    background-color: #28a745; /* Green background for save button */
+  }
+  
+  .saveButton:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  
+  
+  
+  
+  
+  
+  
+  
