@@ -7,6 +7,8 @@ import cors from 'cors';  // Import cors
 import postRoute from './routes/post.route.js';
 import authRoute from './routes/auth.route.js';
 
+
+
 dotenv.config();  // Load environment variables
 
 const app = express();
