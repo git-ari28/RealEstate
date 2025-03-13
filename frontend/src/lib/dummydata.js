@@ -35,7 +35,7 @@ export const ListData = [
     {
       id: 4,
       title: "Beach House",
-      img: "https://example.com/img4.jpg",
+      img: "https://hgtvhome.sndimg.com/content/dam/images/hgtv/fullset/2020/4/15/0/HUHH2020-Beachfront_Kihei-HI-13.JPG.rend.hgtvcom.966.644.suffix/1586973887499.jpeg",
       bedrooms: 5,
       bathrooms: 4,
       price: 750000,
@@ -190,7 +190,7 @@ export const ListData = [
     {
       id: 18,
       title: "Ranch House",
-      img: "https://example.com/img18.jpg",
+      img: "https://th.bing.com/th/id/OIP.1M6ooiVKAsS7Q0b_o9su1wHaFh?rs=1&pid=ImgDetMain",
       bedrooms: 4,
       bathrooms: 3,
       price: 450000,
@@ -201,7 +201,7 @@ export const ListData = [
     {
       id: 19,
       title: "Modern Loft",
-      img: "https://example.com/img19.jpg",
+      img: "https://i0.wp.com/sweetyhomee.com/wp-content/uploads/2020/04/Awesome-Loft-Apartment-Decorating-Ideas-03.png?ssl=1",
       bedrooms: 2,
       bathrooms: 2,
       price: 420000,
@@ -212,7 +212,7 @@ export const ListData = [
     {
       id: 20,
       title: "Suburban Cottage",
-      img: "https://example.com/img20.jpg",
+      img: "https://st.hzcdn.com/simgs/b761458203907996_4-7255/traditional-exterior.jpg",
       bedrooms: 3,
       bathrooms: 2,
       price: 320000,
@@ -223,7 +223,7 @@ export const ListData = [
     {
       id: 21,
       title: "Spacious Villa",
-      img: "https://example.com/img21.jpg",
+      img: "https://th.bing.com/th/id/OIP.0iDclZaB1rPeNjmC-hpg7wHaEj?rs=1&pid=ImgDetMain",
       bedrooms: 5,
       bathrooms: 4,
       price: 980000,
@@ -234,7 +234,7 @@ export const ListData = [
     {
       id: 22,
       title: "Urban Penthouse",
-      img: "https://example.com/img22.jpg",
+      img: "https://th.bing.com/th/id/OIP.tl53yEA9wQt5Cfu-VcpgOgHaHa?rs=1&pid=ImgDetMain",
       bedrooms: 3,
       bathrooms: 3,
       price: 1050000,
@@ -245,7 +245,7 @@ export const ListData = [
     {
       id: 23,
       title: "Modern Duplex",
-      img: "https://example.com/img23.jpg",
+      img: "https://www.rawsonhomes.com.au/-/media/rawson-homes/home-designs/medina/facades/medina---vogue---newredner.ashx?h=1060&w=1414&la=en&hash=A62E3DAA44078CC1B5590FC9EA508C51",
       bedrooms: 4,
       bathrooms: 3,
       price: 450000,

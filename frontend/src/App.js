@@ -7,6 +7,9 @@ import SinglePage from './routes/singlePage/SinglePage';
 import ProfilePage from './routes/ProfilePage/ProfilePage';
 import Register from "./components/auth/Register"
 import './App.css';
+import Login from './components/auth/Login';
+import ProfilePageUpdate from './components/profileUpdate/ProfilePageUpdate';
+import NewPostPage from './components/newPostPage/Newpostpage';
 
 function App() {
   return (
@@ -18,9 +21,12 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<Register/>} />
+          <Route path="/login" element={<Login/>}/>
           <Route path="/list" element={<ListPage/>}/>
           <Route path="/:id" element={<SinglePage/>}/>
           <Route path="/profile" element={<ProfilePage/>}/>
+          <Route path="/profile/update" element={<ProfilePageUpdate/>}/>
+          <Route path="/addpost" element={<NewPostPage/>}/>
         </Routes>
       </div>
     </Router>

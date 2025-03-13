@@ -8,7 +8,7 @@ const Pin = ({ item }) => {
     <Marker position={[item.latitude, item.longitude]}>
       <Popup>
         <Link to={`/${item.id}`} className='popup-container'> {/* Wrapped in Link */}
-          <img src={item.img} alt="" />
+          <img src={"https://static.vecteezy.com/system/resources/previews/000/440/207/original/vector-location-icon.jpg"} alt="" />
           <div className='textContainer'>
             <span>{item.title}</span>
           </div>

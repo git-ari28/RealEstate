@@ -20,7 +20,7 @@ const ImageSlider = ({ images }) => {
     <div className='slider'>
       <div className='fullslider'>
         <div className='arrow' onClick={() => setImageIndex(imageIndex > 0 ? imageIndex - 1 : images.length - 1)}>
-          <img src="path/to/left-arrow.png" alt="Left Arrow" />
+          <img src="https://th.bing.com/th/id/OIP.LyHBzgxfW35_OS8zd2dEUgHaI2?rs=1&pid=ImgDetMain" alt="Left Arrow" />
         </div>
         <div className='bigImage'>
           <img src={images[imageIndex]} alt="" />
@@ -29,7 +29,7 @@ const ImageSlider = ({ images }) => {
           </div>
         </div>
         <div className='arrow' onClick={() => setImageIndex((imageIndex + 1) % images.length)}>
-          <img src="path/to/right-arrow.png" alt="Right Arrow" />
+          <img src="https://w1.pngwing.com/pngs/334/468/png-transparent-arrow-icon-forward-icon-navigation-icon-next-icon-right-icon-white-text-logo-line-material-property-symbol-rectangle.png" alt="Right Arrow" />
         </div>
       </div>
       <div className='smallImages'>

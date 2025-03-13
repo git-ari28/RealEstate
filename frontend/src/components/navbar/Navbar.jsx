@@ -1,61 +1,80 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import "./navbar.scss";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./navbar.css"; 
 
 const Navbar = () => {
-    const [open, setOpen] = useState(false);
-    const user = false; // Set to true if user is logged in, for testing
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
-    return (
-        <nav>
-            <div className='left'>
-                <a href="/" className='logo'>
-                    <img src="./image.png" alt="Logo" />
-                    <span>UrbanForYou</span>
-                </a>
-                <a href="/">Home</a>
-                <a href="/">About</a>
-                <a href="/">Contacts</a>
-                <a href="/">Agents</a>
-            </div>
-            <div className='right'>
-                {user ? (
-                    <div className="user">
-                        <img src="/user-profile.png" alt="User" />
-                        <span>John Doe</span>
-                        <Link to="/profile">Profile</Link>
-                    </div>
-                ) : (
-                    <>
-                        <a href="/">Login</a>
-                        <a href="/" className='register'>SignUp</a>
-                    </>
-                )}
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    setUser(storedUser ? JSON.parse(storedUser) : null);
 
-                <div className='menuicon'>
-                    <img 
-                        src="/menu.png" 
-                        alt="Menu" 
-                        onClick={() => setOpen(prev => !prev)} 
-                    />
-                </div>
-                <div className={open ? "menu active" : "menu"}>
-                    <a href="/">Home</a>
-                    <a href="/">About</a>
-                    <a href="/">Contacts</a>
-                    <a href="/">Agents</a>
-                    {user ? (
-                        <Link to="/profile">Profile</Link>
-                    ) : (
-                        <>
-                            <a href="/">Login</a>
-                            <a href="/">SignUp</a>
-                        </>
-                    )}
-                </div>
-            </div>
-        </nav>
-    );
+    const handleStorageChange = () => {
+      const updatedUser = localStorage.getItem("user");
+      setUser(updatedUser ? JSON.parse(updatedUser) : null);
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    window.dispatchEvent(new Event("storage"));
+    setUser(null);
+    navigate("/login");
+  };
+
+  return (
+    <nav className="navbar">
+      <div className="logo">
+        <Link to="/">UrbanForYou</Link>
+      </div>
+      <ul className="nav-links">
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/about">About</Link></li>
+        <li><Link to="/contact">Contact</Link></li>
+
+        {user ? (
+          <>
+            <li>
+              <Link to="/profile" className="profile-btn">
+                <img 
+                  src={user.avatar || "/default-avatar.png"} 
+                  alt="Avatar" 
+                  className="avatar"
+                />
+                {user.username}
+              </Link>
+            </li>
+            <li>
+              <button onClick={handleLogout} className="logout-btn">Logout</button>
+            </li>
+          </>
+        ) : (
+          <div className="auth-buttons">
+            <button onClick={() => navigate("/login")} className="login-btn">
+              Login
+            </button>
+            <button onClick={() => navigate("/register")} className="signup-btn">
+              Register
+            </button>
+          </div>
+        )}
+      </ul>
+    </nav>
+  );
 };
 
 export default Navbar;
+
+
+
+
+
+
+
+
+

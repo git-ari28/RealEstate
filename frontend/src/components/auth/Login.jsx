@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./Register.scss";
+import "./Login.scss";
 
-const Register = () => {
-  const [username, setUsername] = useState("");
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -14,49 +13,40 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!username || !email || !password) {
+    if (!email || !password) {
       setErrorMessage("All fields are required.");
       return;
     }
 
     try {
       const response = await axios.post(
-        "http://localhost:8801/api/auth/register",
-        { username, email, password }
+        "http://localhost:8801/api/auth/login",
+        { email, password }
       );
 
-      if (response.data.message === "User registered successfully") {
-        console.log("Registration successful!");
-        navigate("/login"); // Redirect to login page
+      if (response.data.message === "Login successful") {
+        
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        localStorage.setItem("token", response.data.token);
+
+        window.dispatchEvent(new Event("storage"));
+
+        console.log("Login successful!");
+        navigate("/"); // Redirect to homepage
       }
     } catch (error) {
-      const errorResponse = error.response?.data?.message;
-
-      if (errorResponse === "User already exists") {
-        console.log("User already exists. Redirecting to login page...");
-        navigate("/login");
-      } else {
-        setErrorMessage(errorResponse || "Error during registration. Please try again.");
-      }
+      setErrorMessage(
+        error.response?.data?.message || "Error during login. Please try again."
+      );
     }
   };
 
   return (
-    <div className="register-container">
-      <div className="register-form">
-        <h2>Register</h2>
+    <div className="login-container">
+      <div className="login-form">
+        <h2>Login</h2>
         {errorMessage && <div className="error-message">{errorMessage}</div>}
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter your username"
-            />
-          </div>
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -78,7 +68,7 @@ const Register = () => {
             />
           </div>
           <button type="submit" className="submit-btn">
-            Register
+            Login
           </button>
         </form>
       </div>
@@ -86,6 +76,4 @@ const Register = () => {
   );
 };
 
-export default Register;
-
-
+export default Login;

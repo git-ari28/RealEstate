@@ -23,6 +23,7 @@ const upload = multer({ storage: storage }).array("images", 5); // Up to 5 image
 export const addPost = async (req, res) => {
   upload(req, res, async (err) => {
     if (err) {
+      console.log("xoxox");
       return res.status(400).json({ error: err.message });
     }
 

@@ -18,7 +18,8 @@ import {
 const router = express.Router();
 
 // Route to add a new post
-router.post('/add', authenticateUser, upload.array('images', 5), addPost);
+
+router.post('/add', upload.array('images', 5), addPost);
 
 // Route to update a post by ID
 router.put("/update/:id",authenticateUser,updatePostById);

@@ -1,37 +1,41 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import User from "../models/User.js"; // Ensure the path is correct
+import User from "../models/User.js";
+import multer from "multer";
+import path from "path";
+import fs from "fs";
 
-// REGISTER FUNCTION
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadPath = "uploads/";
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
+    }
+    cb(null, uploadPath);
+  },
+  filename: (req, file, cb) => cb(null, `${Date.now()}${path.extname(file.originalname)}`),
+});
+const upload = multer({ storage });
+
+
 export const register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    // Validate input
     if (!username || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    // Check if the user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    // Hash the password
-    const saltRounds = 10; // Adjust if necessary for performance/security balance
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-    // Save the user to the database
-    const newUser = new User({
-      username,
-      email,
-      password: hashedPassword,
-    });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ username, email, password: hashedPassword });
 
     await newUser.save();
-
-    // Respond to the client
     res.status(201).json({
       message: "User registered successfully",
       user: { id: newUser._id, username: newUser.username, email: newUser.email },
@@ -42,39 +46,26 @@ export const register = async (req, res) => {
   }
 };
 
-// LOGIN FUNCTION
+
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Validate input
     if (!email || !password) {
       return res.status(400).json({ message: "Email and password are required" });
     }
 
-    // Find the user by email
     const user = await User.findOne({ email });
-    if (!user) {
+    if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    // Compare the provided password with the stored hashed password
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid email or password" });
-    }
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '2d' });
 
-    // Generate JWT token
-    const payload = {
-      userId: user._id, // User ID to identify the user
-    };
-    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }); // Set expiry time as needed
-
-    // Respond to the client
     res.status(200).json({
       message: "Login successful",
       user: { id: user._id, username: user.username, email: user.email },
-      token, // Send token in the response
+      token,
     });
   } catch (error) {
     console.error("Error during login:", error);
@@ -82,78 +73,72 @@ export const login = async (req, res) => {
   }
 };
 
-// LOGOUT FUNCTION
+
 export const logout = (req, res) => {
-  // Since no JWT or session management is involved, simply notify the client
-  res.status(200).json({
-    message: "Logout successful. Please clear client-side credentials if stored.",
-  });
+  res.status(200).json({ message: "Logout successful. Please clear client-side credentials if stored." });
 };
 
-// UPDATE PROFILE FUNCTION
+
 export const updateProfile = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    const userId = req.user.userId; // Get the user ID from the decoded token
-
-    // Validate input
-    if (!username || !email) {
-      return res.status(400).json({ message: "Username and email are required" });
-    }
-
-    // Find the user by ID (using the authenticated user's ID)
+    const userId = req.user.userId;
     const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    if (email && email !== user.email) {
+      const emailExists = await User.findOne({ email });
+      if (emailExists && emailExists._id.toString() !== userId) {
+        return res.status(400).json({ message: "Email is already in use" });
+      }
+      user.email = email;
     }
 
-    // Check if the email is already taken by another user
-    const emailExists = await User.findOne({ email });
-    if (emailExists && emailExists._id.toString() !== userId) {
-      return res.status(400).json({ message: "Email is already in use" });
+    if (username) user.username = username;
+    if (password) user.password = await bcrypt.hash(password, 10);
+
+    // Handle Avatar Upload
+    if (req.file) {
+      if (user.avatar) {
+        const oldImagePath = path.join("uploads", user.avatar.split("/").pop());
+        if (fs.existsSync(oldImagePath)) {
+          fs.unlinkSync(oldImagePath); 
+        }
+      }
+      user.avatar = `/uploads/${req.file.filename}`;
     }
 
-    // Update username and email
-    user.username = username;
-    user.email = email;
-
-    // If password is provided, hash it and update it
-    if (password) {
-      const saltRounds = 10;
-      user.password = await bcrypt.hash(password, saltRounds);
-    }
-
-    // Save the updated user data
     await user.save();
-
-    // Respond to the client
-    res.status(200).json({
-      message: "Profile updated successfully",
-      user: { id: user._id, username: user.username, email: user.email },
+    res.status(200).json({ 
+      message: "Profile updated successfully", 
+      user: { id: user._id, username: user.username, email: user.email, avatar: user.avatar }
     });
   } catch (error) {
-    console.error("Error during profile update:", error);
+    console.error("Error updating profile:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
-// GET USER DETAILS FUNCTION
+
+
 export const getUserDetails = async (req, res) => {
   try {
-    const userId = req.user.userId; // Get the user ID from the decoded token (added by verifyToken middleware)
+    const userId = req.user.userId;
+    const user = await User.findById(userId).select('-password');
 
-    // Find the user by ID
-    const user = await User.findById(userId).select('-password'); // Exclude the password field for security reasons
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-    // Respond with user details
-    res.status(200).json({
-      user: { id: user._id, username: user.username, email: user.email },
+    res.status(200).json({ 
+      user: { id: user._id, username: user.username, email: user.email, avatar: user.avatar } 
     });
   } catch (error) {
-    console.error("Error during fetching user details:", error);
+    console.error("Error fetching user details:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
+export { upload };
+
+
 

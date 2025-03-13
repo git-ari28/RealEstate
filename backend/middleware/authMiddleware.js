@@ -7,6 +7,7 @@ export const authenticateUser = (req, res, next) => {
   if (!token) {
     return res.status(401).json({ message: "No token, authorization denied" });
   }
+  console.log("userrrr");
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET); // Replace with your secret

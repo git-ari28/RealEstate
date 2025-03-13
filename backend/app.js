@@ -4,8 +4,10 @@ import mongoose from 'mongoose';
 import express from 'express';
 import cors from 'cors';  // Import cors
 
+
 import postRoute from './routes/post.route.js';
 import authRoute from './routes/auth.route.js';
+import propertyRoutes from "./routes/property.route.js";
 
 
 
@@ -38,6 +40,7 @@ mongoose.connect(process.env.MONGO_URI, {
 // Routes
 app.use("/api/posts", postRoute);
 app.use("/api/auth", authRoute);
+app.use("/api/properties", propertyRoutes);
 
 // Start the server
 app.listen(PORT, () => {

@@ -1,16 +1,17 @@
 import express from "express";
-const router=express.Router()
-import {register,login,logout,updateProfile,getUserDetails} from "../controllers/auth.controller.js"
-import {authenticateUser} from '../middleware/authMiddleware.js';
+import { register, login, logout, updateProfile, getUserDetails } from "../controllers/auth.controller.js";
+import { authenticateUser } from "../middleware/authMiddleware.js";
+import { upload } from "../controllers/auth.controller.js"; 
 
-router.post("/register",register);
-router.put("/update",authenticateUser,updateProfile);
-router.get('/user-details', authenticateUser, getUserDetails);
+const router = express.Router();
 
-router.post("/login",login);
-
-router.post("/logout",logout);
+router.post("/register", register);
+router.post("/login", login);
+router.post("/logout", logout);
 
 
+router.put("/update", authenticateUser, upload.single("avatar"), updateProfile);
+router.get("/user-details", authenticateUser, getUserDetails);
 
 export default router;
+
