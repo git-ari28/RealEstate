@@ -8,11 +8,10 @@ A full-stack real estate application built with the **MERN** stack (MongoDB, Exp
 ---
 
 ## 🚀 Features
-- 🔍 **Browse Listings** – View available properties with images, details, and pricing.
-- 🏠 **Add New Properties** – Registered users can create, edit, and delete their own listings.
-- 🔐 **Authentication** – Secure login and signup using JWT.
-- 🖼️ **Image Uploads** – Upload property images.
-- 📱 **Responsive Design** – Works seamlessly on desktop and mobile.
+- **Browse Listings** – View available properties with details and pricing.
+- **Add New Properties** – Registered users can create, edit, and delete their own listings.
+- **Authentication** – Secure login and signup using JWT.
+- **Responsive Design** – Works seamlessly on desktop and mobile.
 
 ---
 
@@ -20,8 +19,7 @@ A full-stack real estate application built with the **MERN** stack (MongoDB, Exp
 **Frontend:** React, React Router, Tailwind CSS  
 **Backend:** Node.js, Express.js  
 **Database:** MongoDB  
-**Authentication:** JWT (JSON Web Token)  
-**Other Tools:** Axios, Cloudinary (for image hosting)
+**Authentication:** JWT (JSON Web Token)
 
 ---
 
@@ -31,34 +29,20 @@ A full-stack real estate application built with the **MERN** stack (MongoDB, Exp
    ```bash
    git clone https://github.com/<your-username>/RealEstate.git
    cd RealEstate
-Install dependencies
-
-bash
-Copy
-Edit
 # Install backend dependencies
+cd api
 npm install
 
 # Install frontend dependencies
-cd client
+cd ../client
 npm install
-Set up environment variables
-Create a .env file in the root and add:
-
-env
-Copy
-Edit
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
-CLOUDINARY_URL=your_cloudinary_url
-Run the application
-
-bash
-Copy
-Edit
 # Run backend
-npm run dev
+cd api
+
 
 # Run frontend (in another terminal)
 cd client
-npm start
+npm run dev
+
