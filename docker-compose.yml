@@ -16,7 +16,7 @@ services:
     container_name: realestate-api
     restart: unless-stopped
     env_file:
-      - ./api/.env
+      - ./api/docker.env
     environment:
       # host "mongo" = service above
       - MONGO_URI=mongodb://mongo:27017/realestate
