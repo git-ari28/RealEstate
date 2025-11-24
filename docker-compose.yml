@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo:6
+    container_name: realestate-mongo
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+  api:
+    build:
+      context: ./api
+    container_name: realestate-api
+    restart: unless-stopped
+    env_file:
+      - ./api/.env
+    environment:
+      # host "mongo" = service above
+      - MONGO_URI=mongodb://mongo:27017/realestate
+    depends_on:
+      - mongo
+    ports:
+      - "5000:5000"
+
+  client:
+    build:
+      context: ./client
+    container_name: realestate-client
+    restart: unless-stopped
+    environment:
+      # For Vite:
+      - VITE_API_URL=http://<YOUR_SERVER_IP>:5000
+      # If CRA, use REACT_APP_API_URL instead
+    depends_on:
+      - api
+    ports:
+      - "80:80"
+
+volumes:
+  mongo_data:
