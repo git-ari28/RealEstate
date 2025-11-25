@@ -8,17 +8,13 @@ pipeline {
             }
         }
 
-        stage('Build Docker images') {
+        stage('Build & Deploy with Docker Compose') {
             steps {
-                // Build images for api, client, mongo (mongo uses image)
-                sh 'docker compose -f docker-compose.yml build'
-            }
-        }
-
-        stage('Deploy stack') {
-            steps {
-                // Stop old containers (ignore error if none running)
+                // Stop old containers if they exist (don't fail if they don't)
                 sh 'docker compose -f docker-compose.yml down || true'
+
+                // Build images for api and client
+                sh 'docker compose -f docker-compose.yml build'
 
                 // Start everything in background
                 sh 'docker compose -f docker-compose.yml up -d'
@@ -28,10 +24,10 @@ pipeline {
 
     post {
         success {
-            echo '✅ Deployment successful – stack is up!'
+            echo ' Deployment successful – frontend at http://localhost:5173, backend at http://localhost:5000'
         }
         failure {
-            echo '❌ Deployment failed – check Jenkins console log.'
+            echo ' Deployment failed – check Jenkins console log.'
         }
     }
 }
